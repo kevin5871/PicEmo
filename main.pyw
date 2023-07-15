@@ -200,6 +200,8 @@ def listrefresh() :
         pathlist = f.readlines()
     for i in range(0, len(pathlist)) :
         pathlist[i] = pathlist[i].replace("\n", "")
+
+    Label(pathwindow, text="%d Paths Saved."%len(pathlist)).place(x=0, y=0, width=300, height=50)
     listbox = tk.Listbox(pathwindow)
     listbox.insert(END, *pathlist)
     listbox.place(x=0, y=50, width=300, height=350)
@@ -216,10 +218,9 @@ def addpath() :
     if path != 'src/img' :
         with open('path.txt', 'r') as f:
             pathlist = f.readlines()
-        if path not in pathlist :
-            pathname = path.split("/")[-1]
-            pathlist.append(pathname + ' (' + path+')\n')
-            print(pathlist)
+        pathname = path.split("/")[-1] + ' (' + path+')\n'
+        if pathname not in pathlist :
+            pathlist.append(pathname)
             with open('path.txt', 'w') as f:
                 f.writelines(pathlist)
         listrefresh()
